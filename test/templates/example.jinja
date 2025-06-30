@@ -1,3 +1,10 @@
 <p>
 Hello World!
 </p>
+
+{{
+  configuration.utils.render_query(
+      [ 'Column A', 'Column B' ],
+      'SELECT _A, _B FROM _example_table'
+    )
+}}

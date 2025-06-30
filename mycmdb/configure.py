@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 from . import filesystem
 from . import data
 from . import production
+from . import utils
 
 class Configuration:
   def __init__ (self, parameters):
@@ -22,6 +23,7 @@ class Configuration:
     self.init_filesystem()
     self.init_data()
     self.init_production()
+    self.init_utils()
     self.initialized = True
 
   def init_filesystem (self):
@@ -44,7 +46,11 @@ class Configuration:
 
   def init_production (self):
     parameters = self.original_parameters.get("production")
-    self.production = production.Production(parameters, self.filesystem, self.data)
+    self.production = production.Production(parameters, self)
+
+  def init_utils (self):
+    parameters = self.original_parameters.get("utils")
+    self.utils = utils.Utils(parameters, self)
 
   def run (self):
     if not self.initialized:

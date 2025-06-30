@@ -10,7 +10,7 @@ class Data:
     self.raw_parameters = parameters
 
     self.database_connection = sqlite3.connect(':memory:')
-    cursor = self.database_connection.cursor()
+    self.cursor = self.database_connection.cursor()
 
     # Create table data
     for table in parameters.get('tables'):
@@ -37,7 +37,7 @@ class Data:
       column_names.sort()
       create_table = f'CREATE TABLE _{table_name} ({ ",".join(map(lambda c: f"_{c} {typed_columns[c]}", column_names)) })'
       logger.debug(create_table)
-      cursor.execute(create_table)
+      self.cursor.execute(create_table)
 
       # INSERT INTO
       row_index = 1
@@ -46,8 +46,10 @@ class Data:
         columns.sort()
         insert_into = f'INSERT INTO _{table_name} ({ ",".join(map(lambda c: f"_{c}", columns)) }) VALUES ({ ",".join(map(lambda c: "?", columns)) })'
         logger.debug(f'#{ row_index } - { insert_into }')
-        cursor.execute(insert_into, list(map(lambda c: row[c], columns)))
+        self.cursor.execute(insert_into, list(map(lambda c: row[c], columns)))
         row_index += 1
 
     logger.debug('Data object created.')
 
+  def query (self, sql):
+    return self.cursor.execute(sql)
