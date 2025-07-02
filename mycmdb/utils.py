@@ -1,4 +1,5 @@
 from jinja2 import Template
+from . import filesystem
 
 table_template = Template('''<table>
 <thead>
@@ -26,4 +27,8 @@ class Utils:
       "rows": self.configuration.data.query(query)
     }
     return table_template.render(context)
+
+  def include (self, template, parameters = {}):
+    template_contents = (self.configuration.filesystem.templates_dir / f'{template}.{filesystem.Template.extension}').read_text(encoding = 'utf8')
+    return self.configuration.production.produce_contents(template_contents, parameters)
 

@@ -1,3 +1,12 @@
+mycmdb
+
+# Quick start guide
+
+    $ ./env.sh
+    $ ./run.sh
+
+Products will be found in the build/ directory.
+
 # Introduction
 
 mycmdb is a personal Configuration (or Content?) Management DataBase.

@@ -19,6 +19,7 @@ def exists_dir (parameters, default, base):
   return dir  
 
 class Template:
+  extension = 'jinja'
   def __init__ (self, name, meta, contents):
     self.name = name
     self.meta = {} | meta
@@ -43,8 +44,7 @@ class Filesystem:
     return self.static_dir
 
   def production_templates (self):
-    extension = '.jinja'
     def t (path):
-      return Template(str(path)[len(str(self.templates_dir)) + 1:-len(extension)], {}, path.read_text(encoding = 'utf8'))
-    return list(map(t, self.templates_dir.glob(f'*{extension}')))
+      return Template(str(path)[len(str(self.templates_dir)) + 1:-len(f'.{Template.extension}')], {}, path.read_text(encoding = 'utf8'))
+    return list(map(t, self.templates_dir.glob(f'*.{Template.extension}')))
 

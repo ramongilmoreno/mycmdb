@@ -8,3 +8,11 @@ Hello World!
       'SELECT _A, _B FROM _example_table'
     )
 }}
+
+<p>
+More features: include.
+</p>
+
+{{ configuration.utils.include('_include', { "message": "Included message #1" }) }}
+{{ configuration.utils.include('_include', { "message": "Included message #2" }) }}
+{{ configuration.utils.include('_include') }}

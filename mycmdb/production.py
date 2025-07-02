@@ -16,11 +16,17 @@ class Production:
       'additional': self.parameters.get('additional')
     }
 
+  def produce_contents (self, template_contents, parameters = {}):
+    jinja_template = Template(template_contents)
+    return jinja_template.render(self.jinjaContext() | parameters)
+
   def produce (self):
+    logger.info('Start producing templates...')
     for template in self.configuration.filesystem.production_templates():
+      if template.name.startswith('_'):
+        continue
       logger.info(f'Producing template {template.name}...')
-      jinja_template = Template(template.contents)
-      result = jinja_template.render(self.jinjaContext())
+      result = self.produce_contents(template.contents)
       (self.configuration.filesystem.build_dir / template.name).write_text(result, encoding = 'utf8')
     logger.info('Finished producing templates.')
 
