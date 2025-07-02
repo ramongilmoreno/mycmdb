@@ -1,15 +1,15 @@
 from mycmdb import configure
-from fs import open_fs
+from pathlib import Path
 import os
 import logging
 
 logging.basicConfig(level = logging.INFO)
 
-base = open_fs('./test')
+base = Path('./test')
 build = '../build'
 if not os.path.isdir(build):
   os.mkdir(build)
-build = open_fs(build)
+build = Path(build)
 configuration = configure.configure({
     "data": {
         "tables": [

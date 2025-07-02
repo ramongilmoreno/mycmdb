@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-fs = "*"
 jinja2 = "*"
 
 [dev-packages]

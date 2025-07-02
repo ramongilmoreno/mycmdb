@@ -8,12 +8,12 @@ logger = logging.getLogger(__name__)
 def default_dir (parameters, default, base):
   dir = parameters.get(default)
   if dir == None:
-    dir = base.opendir(default)
+    dir = base / default
   return dir
 
 def exists_dir (parameters, default, base):
   dir = default_dir(parameters, default, base)
-  if not dir.isdir('.'):
+  if not dir.is_dir():
     error = f'Mandatory directory for {default} configured as {dir} does not exists'
     raise AttributeError(error)
   return dir  
@@ -44,6 +44,6 @@ class Filesystem:
 
   def production_templates (self):
     def t (path):
-      return Template(str(path), {}, self.templates_dir.readtext(path, encoding = 'utf8'))
-    return list(map(t, self.templates_dir.walk.files(filter = [ '*.jinja' ])))
+      return Template(str(path), {}, path.read_text(encoding = 'utf8'))
+    return list(map(t, self.templates_dir.glob('*.jinja')))
 

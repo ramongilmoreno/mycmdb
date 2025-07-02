@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0b314d401d1527ae60f423d602b32bc6404bb79f7e3effb5d94b2fabdee937cc"
+            "sha256": "89a5336035e8244fc3f6442bfd9c654067e256d1d16c12d0548bf2589871414a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,21 +16,6 @@
         ]
     },
     "default": {
-        "appdirs": {
-            "hashes": [
-                "sha256:7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41",
-                "sha256:a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128"
-            ],
-            "version": "==1.4.4"
-        },
-        "fs": {
-            "hashes": [
-                "sha256:660064febbccda264ae0b6bace80a8d1be9e089e0a5eb2427b7d517f9a91545c",
-                "sha256:ae97c7d51213f4b70b6a958292530289090de3a7e15841e108fbe144f069d313"
-            ],
-            "index": "pypi",
-            "version": "==2.4.16"
-        },
         "jinja2": {
             "hashes": [
                 "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d",
@@ -106,22 +91,6 @@
             ],
             "markers": "python_version >= '3.9'",
             "version": "==3.0.2"
-        },
-        "setuptools": {
-            "hashes": [
-                "sha256:062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922",
-                "sha256:f36b47402ecde768dbfafc46e8e4207b4360c654f1f3bb84475f0a28628fb19c"
-            ],
-            "markers": "python_version >= '3.9'",
-            "version": "==80.9.0"
-        },
-        "six": {
-            "hashes": [
-                "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274",
-                "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"
-            ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
-            "version": "==1.17.0"
         }
     },
     "develop": {}
