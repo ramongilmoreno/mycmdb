@@ -20,6 +20,7 @@ class Production:
     for template in self.configuration.filesystem.production_templates():
       logger.info(f'Producing template {template.name}...')
       jinja_template = Template(template.contents)
-      print(jinja_template.render(self.jinjaContext()))
+      result = jinja_template.render(self.jinjaContext())
+      (self.configuration.filesystem.build_dir / template.name).write_text(result, encoding = 'utf8')
     logger.info('Finished producing templates.')
 

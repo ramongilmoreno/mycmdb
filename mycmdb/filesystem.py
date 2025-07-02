@@ -43,7 +43,8 @@ class Filesystem:
     return self.static_dir
 
   def production_templates (self):
+    extension = '.jinja'
     def t (path):
-      return Template(str(path), {}, path.read_text(encoding = 'utf8'))
-    return list(map(t, self.templates_dir.glob('*.jinja')))
+      return Template(str(path)[len(str(self.templates_dir)) + 1:-len(extension)], {}, path.read_text(encoding = 'utf8'))
+    return list(map(t, self.templates_dir.glob(f'*{extension}')))
 

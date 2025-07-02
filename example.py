@@ -6,7 +6,7 @@ import logging
 logging.basicConfig(level = logging.INFO)
 
 base = Path('./test')
-build = '../build'
+build = './build'
 if not os.path.isdir(build):
   os.mkdir(build)
 build = Path(build)
