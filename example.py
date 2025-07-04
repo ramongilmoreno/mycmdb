@@ -17,7 +17,12 @@ configuration = configure.configure({
             "name": "example_table",
             "values": [
               { 'A': 'A1', 'B': 'B1' },
-              { 'A': 'A2' }
+              { 'A': 'A1', 'B': 'B2' },
+              { 'A': 'A3', 'B': 'B3' },
+              { 'A': 'A4', 'B': 'B3' },
+              { 'A': 'A5' },
+              {            'B': 'B6' },
+              { 'A': 'A7', 'B': 'B7' }
             ]
           }
         ]

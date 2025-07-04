@@ -1,3 +1,14 @@
+
+<style>
+table {
+  background-color: yellow;
+  border: 1px solid red;
+}
+td {
+  border: 1px solid black;
+}
+</style>
+
 <p>
 Hello World!
 </p>
@@ -5,7 +16,9 @@ Hello World!
 {{
   configuration.utils.render_query(
       [ 'Column A', 'Column B' ],
-      'SELECT _A, _B FROM _example_table'
+      'SELECT COALESCE(_A, "Not informed"), COALESCE(_B, "Missing") '
+      'FROM _example_table '
+      'ORDER BY _order'
     )
 }}
 
