@@ -4,9 +4,12 @@ from jinja2 import Template
 logger = logging.getLogger(__name__)
 
 class Production:
-  def __init__ (self, parameters, configuration):
+  def __init__ (self, configuration, parameters = {}):
     logger.debug('Creating Production object...')
-    self.parameters = {} if not parameters else parameters
+    self.parameters = parameters
+    # Make sure self.parameters is not None, even if provided as None.
+    if self.parameters == None:
+      self.parameters = {}
     self.configuration = configuration
     logger.debug('Production object created')
 

@@ -12,7 +12,7 @@ from . import utils
 
 class Configuration:
   def __init__ (self, parameters):
-    self.original_parameters = parameters
+    self.parameters = parameters
     if parameters.get('skip_initialization_in_init') == True:
       logger.debug('Delayed initialization. Need to call init() before using this object.')
     else:
@@ -27,30 +27,30 @@ class Configuration:
     self.initialized = True
 
   def init_filesystem (self):
-    parameters = self.original_parameters.get("filesystem")
+    parameters = self.parameters.get("filesystem")
     if parameters == None:
       error = 'Missing "fileystem" attribute in configuration parameters'
       logger.error(error)
       raise AttributeError(error)
-    self.filesystem = filesystem.Filesystem(parameters)
+    self.filesystem = filesystem.Filesystem(self, parameters)
     logger.debug('Fileystem initialization completed')
 
   def init_data (self):
-    parameters = self.original_parameters.get("data")
+    parameters = self.parameters.get("data")
     if parameters == None:
       error = 'Missing "data" attribute in configuration parameters'
       logger.error(error)
       raise AttributeError(error)
-    self.data = data.Data(parameters)
+    self.data = data.Data(self, parameters)
     logger.debug('Data initialization completed')
 
   def init_production (self):
-    parameters = self.original_parameters.get("production")
-    self.production = production.Production(parameters, self)
+    parameters = self.parameters.get("production")
+    self.production = production.Production(self, parameters)
 
   def init_utils (self):
-    parameters = self.original_parameters.get("utils")
-    self.utils = utils.Utils(parameters, self)
+    parameters = self.parameters.get("utils")
+    self.utils = utils.Utils(self, parameters)
 
   def run (self):
     if not self.initialized:

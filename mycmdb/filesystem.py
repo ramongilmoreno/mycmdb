@@ -26,8 +26,9 @@ class Template:
     self.contents = contents
 
 class Filesystem:
-  def __init__ (self, parameters):
+  def __init__ (self, configuration, parameters):
     logger.debug('Creating Filesystem object...')
+    self.configuration = configuration
     self.raw_parameters = parameters
 
     self.base = parameters['base']

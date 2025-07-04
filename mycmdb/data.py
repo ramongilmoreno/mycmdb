@@ -4,9 +4,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 class Data:
-  def __init__ (self, parameters):
+  def __init__ (self, configuration, parameters):
     logger.debug('Creating Data object...')
-
+    self.configuration = configuration
     self.raw_parameters = parameters
 
     self.database_connection = sqlite3.connect(':memory:')

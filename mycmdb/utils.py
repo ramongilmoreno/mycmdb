@@ -17,11 +17,11 @@ table_template = Template('''<table>
 </table>''')
 
 class Utils:
-  def __init__ (self, parameters, configuration):
-    self.parameters = parameters
+  def __init__ (self, configuration, parameters = {}):
     self.configuration = configuration
+    self.parameters = parameters
 
-  def render_query (self, columns, query):
+  def render_query (self, columns, query, parameters = {}):
     context = {
       "columns": columns,
       "rows": self.configuration.data.query(query)
