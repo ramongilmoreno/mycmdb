@@ -23,13 +23,16 @@ class Production:
     jinja_template = Template(template_contents)
     return jinja_template.render(self.jinjaContext() | parameters)
 
-  def produce (self):
+  def produce (self, parameters = {}):
     logger.info('Start producing templates...')
+    wrapper_template_contents = self.configuration.filesystem.wrapper_template_contents()
+    if wrapper_template_contents:
+      wrapper_template_contents = Template(wrapper_template_contents)
     for template in self.configuration.filesystem.production_templates():
-      if template.name.startswith('_'):
-        continue
       logger.info(f'Producing template {template.name}...')
       result = self.produce_contents(template.contents)
+      if wrapper_template_contents:
+        result = wrapper_template_contents.render(self.jinjaContext() | parameters | { 'body': result })
       (self.configuration.filesystem.build_dir / template.name).write_text(result, encoding = 'utf8')
     logger.info('Finished producing templates.')
 
