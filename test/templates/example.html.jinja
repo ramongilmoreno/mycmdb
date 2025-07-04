@@ -1,8 +1,10 @@
-
+<h1>Introduction</h1>
 
 <p>
 Hello World!
 </p>
+
+<h2>Render a query easily.</h2>
 
 {{
   configuration.utils.render_query(
@@ -13,8 +15,22 @@ Hello World!
     )
 }}
 
+<h1>Subdocuments</h1>
+
+<p>Include a subdocument here.</p>
+
+{{ configuration.utils.include_html('subdocument.html', { "h1_to_h": 2 }) }}
+
+<h2>Include the subdocument again, but at a different depth</h2>
+
+{{ configuration.utils.include_html('subdocument.html', { "h1_to_h": 3 }) }}
+
+<h1>Other features</h1>
+
+<h2>Include raw</h2>
+
 <p>
-More features: include.
+Include a document as raw (no HTML) processing
 </p>
 
 {{ configuration.utils.include('_include', { "message": "Included message #1" }) }}

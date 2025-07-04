@@ -1,9 +1,11 @@
 import logging
 logger = logging.getLogger(__name__)
 
-from jinja2 import Template
 from . import filesystem
+
+from jinja2 import Template
 import xml.etree.ElementTree as ET
+import re
 
 table_template = Template('''<table>
 <thead>
@@ -59,6 +61,22 @@ class Utils:
           rows[j].remove(value)
 
     return ET.tostring(xml, encoding = 'unicode', xml_declaration = False)
+
+  def include_html (self, template, parameters = {}):
+    template_contents = (self.configuration.filesystem.templates_dir / f'{template}.{filesystem.Template.extension}').read_text(encoding = 'utf8')
+    raw = self.configuration.production.produce_contents(template_contents, parameters)
+    h1_to_h = parameters['h1_to_h']
+    if h1_to_h == None:
+      return raw
+
+    # Shift <hX> tags
+    h1_to_h = int(h1_to_h)
+    xml = ET.fromstring('<tag>' + raw + '</tag>')
+    for i in reversed(range(6)):
+      new_tag = f'h{min(6, i + h1_to_h - 1)}'
+      for tag in xml.findall(f'.//h{i}'):
+        tag.tag = new_tag
+    return re.sub(r'^<tag>', '', re.sub(r'</tag>$', '', ET.tostring(xml, encoding = 'unicode', xml_declaration = False)))
 
   def include (self, template, parameters = {}):
     template_contents = (self.configuration.filesystem.templates_dir / f'{template}.{filesystem.Template.extension}').read_text(encoding = 'utf8')
