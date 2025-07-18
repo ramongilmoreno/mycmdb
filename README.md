@@ -12,7 +12,7 @@ Products will be found in the build/ directory.
 mycmdb is a personal Configuration (or Content?) Management DataBase.
 
 The core of the tool is a [relational
-model](https://en.wikipedia.org/wiki/Relational_model) feed with data from
+model](https://en.wikipedia.org/wiki/Relational_model) fed with data from
 either static files, or data generated/produced/obtained by a
 [Python](https://www.python.org) program.
 
@@ -34,4 +34,10 @@ It is not an online service.
 
 It is out of the scope of this project providing an online access to the
 features of this tool.
+
+# Useful links
+
+* GitHub repository: https://github.com/ramongilmoreno/mycmdb
+* Package in Python Package Index (PyPi): https://pypi.org/project/mycmdb/
+* Example project using this package (also in GitHub): https://github.com/ramongilmoreno/mycmdb-test
 
