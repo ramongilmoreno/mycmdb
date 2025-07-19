@@ -40,11 +40,13 @@ class Filesystem:
     self.build_dir = exists_dir(parameters, 'build', self.base)
     self.templates_dir = exists_dir(parameters, 'templates', self.base)
 
+    self.static_dir = None
+
     logger.debug('Filesystem object created.')
 
   def delayed_static_dir (self):
     if not self.static_dir:
-      self.static_dir = default_dir(parameters['static'], 'static', self.base)
+      self.static_dir = default_dir(self.parameters, 'static', self.base)
     return self.static_dir
 
   def wrapper_template_contents (self):
@@ -63,4 +65,8 @@ class Filesystem:
     def not_underscore (path):
       return not re.match(r'.*_[^/]*$', str(path))
     return list(map(t, filter(not_underscore, self.templates_dir.glob(f'*.{Template.extension}'))))
+
+  def static_resource (self, resource_name):
+    path = self.delayed_static_dir() / resource_name
+    return path.read_bytes()
 

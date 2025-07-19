@@ -27,7 +27,15 @@ Hello World!
 
 <h1>Other features</h1>
 
-<h2>Include raw</h2>
+<h2>Embed images</h2>
+
+<p>
+This image has been embedded in the HTML document.
+</p>
+
+<img src="{{ configuration.utils.static_base64('example.png', 'image/png') }}" style="width: 15em;"/>
+
+<h2>Include raw templates</h2>
 
 <p>
 Include a document as raw (no HTML) processing

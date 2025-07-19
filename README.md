@@ -41,3 +41,7 @@ features of this tool.
 * Package in Python Package Index (PyPi): https://pypi.org/project/mycmdb/
 * Example project using this package (also in GitHub): https://github.com/ramongilmoreno/mycmdb-test
 
+# Changelog
+
+2025-07-19 Support embedded images https://github.com/ramongilmoreno/mycmdb/issues/3
+

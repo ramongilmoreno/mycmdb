@@ -7,6 +7,8 @@ from jinja2 import Template
 import xml.etree.ElementTree as ET
 import re
 
+import base64
+
 table_template = Template('''<table>
 <thead>
 <tr>
@@ -81,4 +83,10 @@ class Utils:
   def include (self, template, parameters = {}):
     template_contents = (self.configuration.filesystem.templates_dir / f'{template}.{filesystem.Template.extension}').read_text(encoding = 'utf8')
     return self.configuration.production.produce_contents(template_contents, parameters)
+
+  def static_base64 (self, resource_name, mime_type):
+    data = self.configuration.filesystem.static_resource(resource_name)
+    data = base64.b64encode(data)
+    data = data.decode('utf-8')
+    return f'data:{mime_type};base64,{data}'
 
