@@ -63,7 +63,7 @@ class Filesystem:
     def t (path):
       return Template(str(path)[len(str(self.templates_dir)) + 1:-len(f'.{Template.extension}')], {}, path.read_text(encoding = 'utf8'))
     def not_underscore (path):
-      return not re.match(r'.*_[^/]*$', str(path))
+      return not re.match(r'.*/_[^/]*$', str(path))
     return list(map(t, filter(not_underscore, self.templates_dir.glob(f'*.{Template.extension}'))))
 
   def static_resource (self, resource_name):

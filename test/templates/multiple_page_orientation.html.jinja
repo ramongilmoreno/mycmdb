@@ -1,0 +1,32 @@
+<h1>Multiple page orientation</h1>
+
+<p>First no specific orientation.</p>
+
+{{ configuration.utils.paper_AX_div_open('A4', True) }}
+
+<h2>A4 portrait orientation</h2>
+
+<p>Changes (if needed) to A4 portrait.</p>
+
+{{ configuration.utils.paper_AX_div_close() }}
+
+{{ configuration.utils.paper_AX_div_open('A4', False) }}
+
+<h2>A4 landscape orientation</h2>
+
+<p>Changes to A4 landscape.</p>
+
+{{ configuration.utils.paper_AX_div_close() }}
+
+{{ configuration.utils.paper_AX_div_open('A4', False) }}
+
+<h2>A4 portrait orientation again</h2>
+
+<p>Changes to A4 portrait again.</p>
+
+{{ configuration.utils.paper_AX_div_close() }}
+
+<h2>No specific orientation again</h2>
+
+<p>No specific orientation at the end.</p>
+

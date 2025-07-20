@@ -8,6 +8,7 @@ import xml.etree.ElementTree as ET
 import re
 
 import base64
+import math
 
 table_template = Template('''<table>
 <thead>
@@ -89,4 +90,28 @@ class Utils:
     data = base64.b64encode(data)
     data = data.decode('utf-8')
     return f'data:{mime_type};base64,{data}'
+
+  def paper_AX_sizes (self, custom_prefix = '_'):
+    # https://tomroelandts.com/articles/how-is-the-size-of-a4-paper-determined#:~:text=The%20dimensions%20of%20the%20smaller,×%20297%20mm%20for%20A4.
+    # A0 is the area of 1 square meter
+    width = int(1000 / 2 ** (1 / 4) + 0.5)
+    height = int(1000 * 2 ** (1 / 4) + 0.5)
+    sizes = []
+    for i in range(11):
+      # print('A' + str(i), '=', width, 'x', height, 'mm')
+      sizes.append((f'A{str(i)}', width, height))
+      width, height = height, width
+      width //= 2
+    # https://dev.to/turbaszek/flat-map-in-python-3g98
+    flat_map = lambda f, xs: [y for ys in xs for y in f(ys)]
+    # For each A* paper size define -portrait and -landscape orientation
+    sizes = flat_map(lambda s: [(s[0] + '-portrait', s[1], s[2]), (s[0] + '-landscape', s[2], s[1])], sizes)
+    # For each orientation, define lines for @page <size and orientation> { ... } with dimensions, and a div.<size and orientation> CSS rule
+    return '\n'.join(list(flat_map(lambda s: [f'@page {custom_prefix}page-size-{s[0]} {{ size: {s[1]}mm {s[2]}mm; margin: 12mm; }}', f'div.{custom_prefix}page-size-{s[0]} {{ page: {custom_prefix}page-size-{s[0]}; }}'], sizes)))
+
+  def paper_AX_div_open (self, aX_size, portrait_orientation = True, custom_prefix = '_'):
+    return f'<div paper_orientation="{custom_prefix}page-size-{aX_size}-' + ('portrait' if portrait_orientation else 'landscape') + '">'
+
+  def paper_AX_div_close (self):
+    return '</div>'
 
