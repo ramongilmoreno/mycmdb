@@ -1,29 +1,10 @@
 import logging
 logger = logging.getLogger(__name__)
-
 from . import filesystem
-
-from jinja2 import Template
 import xml.etree.ElementTree as ET
 import re
-
 import base64
 import math
-
-table_template = Template('''<table>
-<thead>
-<tr>
-{% for column in columns -%}<th>{{ column }}</th>{% endfor %}
-</tr>
-</thead>
-<tbody>
-{% for row in rows -%}
-<tr>
-{% for field in row %}<td>{{ field }}</td>{% endfor %}
-</tr>
-{% endfor -%}
-</tbody>
-</table>''')
 
 class Utils:
   def __init__ (self, configuration, parameters = {}):
@@ -31,20 +12,38 @@ class Utils:
     self.parameters = parameters
 
   def render_query (self, columns, query, parameters = {}):
-    context = {
-      "columns": columns,
-      "rows": self.configuration.data.query(query)
-    }
-    raw = table_template.render(context)
+    table = ET.Element('table')
+    thead = ET.SubElement(table, 'thead')
+    tr = ET.SubElement(thead, 'tr')
+    for column in columns:
+      th = ET.SubElement(tr, 'th')
+      if isinstance(column, dict):
+        th.text = column['name']
+      elif isinstance(column, str):
+        th.text = column
+      else:
+        logger.error(f'Unknown column {str(column)}')
+    tbody = ET.SubElement(table, 'tbody')
+    for row in self.configuration.data.query(query):
+      tr = ET.SubElement(tbody, 'tr')
+      for field in enumerate(row):
+        td = ET.SubElement(tr, 'td')
+        td.text = field[1]
+        classes = set()
+        if 'classes' in columns[field[0]]:
+          classes.update(columns[field[0]]['classes'])
+        if 'function' in columns[field[0]]:
+          classes.update(columns[field[0]]['function'](field[1], row) or [])
+        if len(classes) > 0:
+          td.set('class', ' '.join(classes))
 
     # Do not merge rows if stated
     if parameters.get('do_not_merge_rows') == True:
-      return raw
-
+      return ET.tostring(table, encoding = 'unicode', xml_declaration = False)
     # Default behaviour is to merge rows...
-    xml = ET.fromstring(raw)
-    columns = [i for i in xml.findall('./thead/tr/th')]
-    rows = [i for i in xml.findall('./tbody/tr')]
+    xml = table
+    columns = [i for i in xml.findall('thead/tr/th')]
+    rows = [i for i in xml.findall('tbody/tr')]
 
     # Reverse columns order, so td are deleted from the rightmost cells first
     # (deleting from left would cause td indexes to get shifted to the left)
