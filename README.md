@@ -44,4 +44,5 @@ features of this tool.
 # Changelog
 
 2025-07-19 Support embedded images https://github.com/ramongilmoreno/mycmdb/issues/3
+2025-08-01 Support Markdown https://github.com/ramongilmoreno/mycmdb/issues/2
 

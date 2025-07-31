@@ -1,6 +1,7 @@
 import logging
 from jinja2 import Template
 import xml.etree.ElementTree as ET
+from markdown_it import MarkdownIt
 
 logger = logging.getLogger(__name__)
 
@@ -65,6 +66,15 @@ class Production:
               new_element_br.set('style', 'mso-break-type:section-break')
               new_element_span.append(new_element_br)
               parent_element.insert(index, new_element_span)
+        # Proceed with Markdown
+        md = MarkdownIt()
+        for parent_of_markdown in xml.findall('.//markdown/..'):
+          # Results in reversed() to preserve indexes
+          for markdown in reversed(parent_of_markdown.findall('markdown')):
+            index = list(parent_of_markdown).index(markdown)
+            new_section = ET.fromstring('<span>' + md.render(markdown.text) + '</span>')
+            parent_of_markdown.insert(index, new_section)
+            parent_of_markdown.remove(markdown)
         result = ET.tostring(xml[0], encoding = 'unicode', xml_declaration = False)
       (self.configuration.filesystem.build_dir / template.name).write_text(result, encoding = 'utf8')
     logger.info('Finished producing templates.')

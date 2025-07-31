@@ -15,6 +15,12 @@ Hello World!
     )
 }}
 
+<h2>And a Markdown section</h2>
+
+<markdown>
+Example of some _Markdown_ contents.
+</markdown>
+
 <h1>Subdocuments</h1>
 
 <p>Include a subdocument here.</p>
@@ -48,3 +54,15 @@ Include a document as raw (no HTML) processing
 {{ configuration.utils.include('_include', { "message": "Included message #1" }) }}
 {{ configuration.utils.include('_include', { "message": "Included message #2" }) }}
 {{ configuration.utils.include('_include') }}
+
+<h1>Another Markdown section</h1>
+
+<markdown>
+End **Markdown** section.
+
+Another paragraph.
+
+## Even a subsection
+
+This is a _Markdown_ subsection.
+</markdown>
