@@ -41,6 +41,13 @@ features of this tool.
 * Package in Python Package Index (PyPi): https://pypi.org/project/mycmdb/
 * Example project using this package (also in GitHub): https://github.com/ramongilmoreno/mycmdb-test
 
+# Distribution to PyPi
+
+Use these commands to build and publish to pypi.org:
+
+    $ python3 -m build
+    $ python3 -m twine upload --repository pypi dist/*
+
 # Changelog
 
 2025-07-19 Support embedded images https://github.com/ramongilmoreno/mycmdb/issues/3
