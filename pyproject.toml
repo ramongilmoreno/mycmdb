@@ -18,7 +18,8 @@ classifiers = [
 license = "MIT"
 license-files = [ "LICENSE.txt" ]
 dependencies = [
-  "jinja2"
+  "jinja2",
+  "markdown-it-py"
 ]
 
 [project.urls]
