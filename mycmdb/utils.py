@@ -28,7 +28,7 @@ class Utils:
       tr = ET.SubElement(tbody, 'tr')
       for field in enumerate(row):
         td = ET.SubElement(tr, 'td')
-        td.text = field[1]
+        td.text = str(field[1])
         classes = set()
         if 'classes' in columns[field[0]]:
           classes.update(columns[field[0]]['classes'])

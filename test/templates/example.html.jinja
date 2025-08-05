@@ -8,8 +8,16 @@ Hello World!
 
 {{
   configuration.utils.render_query(
-      [ { "name": "Column A", "classes": [ "red-cell" ] }, 'Column B', { "name": "Column C", "function": configuration.parameters['some_parameters_here']['green_background_cell_function'] } ],
-      'SELECT COALESCE(_A, "Not informed"), COALESCE(_B, "Missing"), _C '
+      [
+        "Order",
+        { "name": "Column A", "classes": [ "red-cell" ] },
+        "Column B",
+        { "name": "Column C", "function": configuration.parameters['some_parameters_here']['green_background_cell_function'] },
+        { "name": "Prefixed C", "classes": [ "left-cell" ] },
+        "Fibonacci",
+        "Fibonacci index"
+      ],
+      'SELECT _order, COALESCE(_A, "Not informed"), COALESCE(_B, "Missing"), _C, prefix_it(_C), _Fibonacci, fibonacci_index(_Fibonacci) '
       'FROM _example_table '
       'ORDER BY _order'
     )

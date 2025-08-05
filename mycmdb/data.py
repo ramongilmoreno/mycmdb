@@ -1,5 +1,6 @@
 import sqlite3
 import logging
+from inspect import signature
 
 logger = logging.getLogger(__name__)
 
@@ -10,6 +11,9 @@ class Data:
     self.parameters = {} if not parameters else parameters
 
     self.database_connection = sqlite3.connect(':memory:')
+    for f in self.parameters.get('sql_functions'):
+      logger.debug(f'Custom function {str(f)}')
+      self.database_connection.create_function(f[0], len(signature(f[1]).parameters), f[1])
     self.cursor = self.database_connection.cursor()
 
     exclude_order_column = False
@@ -29,8 +33,8 @@ class Data:
       typed_columns = {}
       def empty_list (arg):
         return [] if not arg else arg
-      for typed_column in empty_list(table.get('typed_column')):
-        typed_columns[typed_column] = table['typed_column'][typed_column]
+      for typed_column in empty_list(table.get('typed_columns')):
+        typed_columns[typed_column] = table['typed_columns'][typed_column]
       if not exclude_order_column:
         typed_columns['order'] = 'NUMBER'
       for row in table['values']:
