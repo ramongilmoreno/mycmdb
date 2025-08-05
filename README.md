@@ -50,9 +50,9 @@ Use these commands to build and publish to pypi.org:
 
 # Changelog
 
-2025-07-19 Support embedded images https://github.com/ramongilmoreno/mycmdb/issues/3
-2025-07-21 Support different page format/orientation https://github.com/ramongilmoreno/mycmdb/issues/1
-2025-07-28 Support different table cells styles https://github.com/ramongilmoreno/mycmdb/issues/4
-2025-08-01 Support Markdown https://github.com/ramongilmoreno/mycmdb/issues/2
-2025-08-06 Support custom SQL functions https://github.com/ramongilmoreno/mycmdb/issues/7
+* 2025-07-19 Support embedded images https://github.com/ramongilmoreno/mycmdb/issues/3
+* 2025-07-21 Support different page format/orientation https://github.com/ramongilmoreno/mycmdb/issues/1
+* 2025-07-28 Support different table cells styles https://github.com/ramongilmoreno/mycmdb/issues/4
+* 2025-08-01 Support Markdown https://github.com/ramongilmoreno/mycmdb/issues/2
+* 2025-08-06 Support custom SQL functions https://github.com/ramongilmoreno/mycmdb/issues/7
 
