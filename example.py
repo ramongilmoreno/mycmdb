@@ -1,4 +1,4 @@
-from mycmdb import configure
+from mycmdb import configure, transformations
 from pathlib import Path
 import os
 import logging
@@ -60,6 +60,14 @@ configuration = configure.configure({
     "filesystem": {
         "base": base,
         "build": build
+      },
+    "production": {
+        "transformation": transformations.transformation_builder(
+            transformations.to_xml,
+            transformations.page_orientation,
+            transformations.markdown_tags,
+            transformations.from_xml
+          )
       },
     "some_parameters_here": {
       "green_background_cell_function": lambda value, row_values: ['green-background-cell'] if value == 'C1' else None
