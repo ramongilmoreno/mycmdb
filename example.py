@@ -67,6 +67,7 @@ configuration = configure.configure({
             transformations.page_orientation,
             transformations.markdown_tags,
             transformations.target_blank,
+            transformations.merge_rows,
             transformations.from_xml
           )
       },

@@ -79,11 +79,43 @@ def markdown_tags (context, current_xml, parameters):
 # Add target="_blank" to <a href="..."> whose href does not start with "#"
 # (local references)
 #
-def target_blank (conext, current_xml, parameters):
+def target_blank (context, current_xml, parameters):
   for a in current_xml.findall('.//a'):
     href = a.get('href')
     if a.get('target') == None and href != None and not href.startswith('#'):
       a.set('target', '_blank')
+  return (current_xml, parameters)
+
+#
+# Merge table rows.
+#
+# Will skip those tables with a "do_not_merge_rows" attribute set to "true".
+#
+def merge_rows (context, current_xml, parameters):
+  flag = 'do_not_merge_rows'
+  for table in current_xml.findall('.//table'):
+    # Only if flag is not present
+    if table.get(flag) != 'true':
+      columns = [i for i in table.findall('thead/tr/th')]
+      rows = [i for i in table.findall('tbody/tr')]
+      # Reverse columns order, so td are deleted from the rightmost cells first
+      # (deleting from left would cause td indexes to get shifted to the left)
+      for i in reversed(range(len(columns))):
+        logger.debug(f'Merging column { columns[i].text }')
+        values = [row.findall('./td')[i] for row in rows]
+        last_value = None
+        last_value_count = 1
+        for j in range(len(rows)):
+          value = values[j]
+          if (last_value == None) or (last_value.text != value.text):
+            last_value = value
+            last_value_count = 1
+          else:
+            last_value_count += 1
+            last_value.attrib['rowspan'] = str(last_value_count)
+            rows[j].remove(value)
+    else:
+      table.attrib.pop(flag)
   return (current_xml, parameters)
 
 #

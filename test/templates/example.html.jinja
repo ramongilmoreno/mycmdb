@@ -27,6 +27,21 @@ Link to an anchor on this page. Specifically: <a href="#markdown">to the Markdow
     )
 }}
 
+<p>Without merging cells.</p>
+
+{{
+  configuration.utils.render_query(
+      [
+        "Order",
+        { "name": "Column A", "classes": [ "red-cell" ] },
+      ],
+      'SELECT _order, COALESCE(_A, "Not informed") '
+      'FROM _example_table '
+      'ORDER BY _order',
+      { "do_not_merge_rows": True }
+    )
+}}
+
 <h2>And a Markdown section</h2>
 
 <a name="markdown"/>
