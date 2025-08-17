@@ -66,6 +66,7 @@ configuration = configure.configure({
             transformations.to_xml,
             transformations.page_orientation,
             transformations.markdown_tags,
+            transformations.target_blank,
             transformations.from_xml
           )
       },

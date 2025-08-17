@@ -76,6 +76,17 @@ def markdown_tags (context, current_xml, parameters):
   return (current_xml, parameters)
 
 #
+# Add target="_blank" to <a href="..."> whose href does not start with "#"
+# (local references)
+#
+def target_blank (conext, current_xml, parameters):
+  for a in current_xml.findall('.//a'):
+    href = a.get('href')
+    if a.get('target') == None and href != None and not href.startswith('#'):
+      a.set('target', '_blank')
+  return (current_xml, parameters)
+
+#
 # Render XML as text again
 #
 def from_xml (context, current_xml, parameters):
