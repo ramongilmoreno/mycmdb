@@ -11,7 +11,7 @@ Link to an anchor on this page. Specifically: <a href="#markdown">to the Markdow
 <h2>Render a query easily.</h2>
 
 {{
-  configuration.utils.render_query(
+  utils.render_query(
       [
         "Order",
         { "name": "Column A", "classes": [ "red-cell" ] },
@@ -30,7 +30,7 @@ Link to an anchor on this page. Specifically: <a href="#markdown">to the Markdow
 <p>Without merging cells.</p>
 
 {{
-  configuration.utils.render_query(
+  utils.render_query(
       [
         "Order",
         { "name": "Column A", "classes": [ "red-cell" ] },
@@ -61,17 +61,17 @@ And a [link to Google](https://www.google.com).
 
 <p>Include a subdocument here.</p>
 
-{{ configuration.utils.include_html('subdocument.html', { "h1_to_h": 2 }) }}
+{{ utils.include_html('subdocument.html', { "h1_to_h": 2 }) }}
 
 <h2>Include the subdocument again, but at a different depth</h2>
 
-{{ configuration.utils.include_html('subdocument.html', { "h1_to_h": 3 }) }}
+{{ utils.include_html('subdocument.html', { "h1_to_h": 3 }) }}
 
 <h1>Other features</h1>
 
 <h2>Different orientation pages</h2>
 
-{{ configuration.utils.include_html('multiple_page_orientation.html', { "h1_to_h": 3 }) }}
+{{ utils.include_html('multiple_page_orientation.html', { "h1_to_h": 3 }) }}
 
 <h2>Embed images</h2>
 
@@ -79,7 +79,7 @@ And a [link to Google](https://www.google.com).
 This image has been embedded in the HTML document.
 </p>
 
-<img src="{{ configuration.utils.static_base64('example.png', 'image/png') }}" style="width: 15em;"/>
+<img src="{{ utils.static_base64('example.png', 'image/png') }}" style="width: 15em;"/>
 
 <h2>Include raw templates</h2>
 
@@ -87,9 +87,9 @@ This image has been embedded in the HTML document.
 Include a document as raw (no HTML) processing
 </p>
 
-{{ configuration.utils.include('_include', { "message": "Included message #1" }) }}
-{{ configuration.utils.include('_include', { "message": "Included message #2" }) }}
-{{ configuration.utils.include('_include') }}
+{{ utils.include('_include', { "message": "Included message #1" }) }}
+{{ utils.include('_include', { "message": "Included message #2" }) }}
+{{ utils.include('_include') }}
 
 <h1>Another Markdown section</h1>
 

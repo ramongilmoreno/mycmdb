@@ -13,17 +13,17 @@ class Production:
     if self.parameters == None:
       self.parameters = {}
     self.configuration = configuration
+    self.additional = self.parameters.get('additional')
+    if self.additional == None:
+      self.additional = {}
     logger.debug('Production object created')
 
   def jinjaContext (self):
-    return {
-      'configuration': self.configuration,
-      'additional': self.parameters.get('additional')
-    }
+    return self.additional | { 'configuration': self.configuration }
 
   def produce_contents (self, template_contents, parameters = {}):
     jinja_template = Template(template_contents)
-    return jinja_template.render({} | parameters | self.jinjaContext())
+    return jinja_template.render(parameters | self.jinjaContext())
 
   def produce (self):
     logger.info('Start producing templates...')

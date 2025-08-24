@@ -1,4 +1,4 @@
-from mycmdb import configure, transformations
+from mycmdb import configuration, transformations, utils_html
 from pathlib import Path
 import os
 import logging
@@ -32,7 +32,8 @@ def fibonacci_index (input):
   else:
     return math.floor(log_phi(math.sqrt(5) * (input + 0.5)))
 
-configuration = configure.configure({
+cfg = configuration.Configuration()
+cfg.init({
     "data": {
         "tables": [
           {
@@ -62,6 +63,9 @@ configuration = configure.configure({
         "build": build
       },
     "production": {
+        "additional": {
+          "utils": utils_html.HtmlUtils(cfg)
+        },
         "transformation": transformations.transformation_builder(
             transformations.to_xml,
             transformations.page_orientation,
@@ -75,5 +79,5 @@ configuration = configure.configure({
       "green_background_cell_function": lambda value, row_values: ['green-background-cell'] if value == 'C1' else None
     }
   })
-configuration.run()
+cfg.run()
 

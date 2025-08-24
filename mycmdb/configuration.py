@@ -8,22 +8,17 @@ logger = logging.getLogger(__name__)
 from . import filesystem
 from . import data
 from . import production
-from . import utils
 
 class Configuration:
-  def __init__ (self, parameters):
-    self.parameters = parameters
-    if parameters.get('skip_initialization_in_init') == True:
-      logger.debug('Delayed initialization. Need to call init() before using this object.')
-    else:
-      self.init()
 
-  def init (self):
-    # Check initialization is OK
+  def __init__ (self):
+    self.initialized = False
+
+  def init (self, parameters = {}):
+    self.parameters = parameters
     self.init_filesystem()
     self.init_data()
     self.init_production()
-    self.init_utils()
     self.initialized = True
 
   def init_filesystem (self):
@@ -48,17 +43,10 @@ class Configuration:
     parameters = self.parameters.get("production")
     self.production = production.Production(self, parameters)
 
-  def init_utils (self):
-    parameters = self.parameters.get("utils")
-    self.utils = utils.Utils(self, parameters)
-
   def run (self):
     if not self.initialized:
       e = 'Configuration not yet initialized. Make sure Configuration.init() is called'
       logger.error(e)
       raise RuntimeError(e)
     self.production.produce()
-
-def configure (parameters):
-  return Configuration(parameters)
 

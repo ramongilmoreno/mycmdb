@@ -6,7 +6,7 @@ import re
 import base64
 import math
 
-class Utils:
+class HtmlUtils:
   def __init__ (self, configuration, parameters = {}):
     self.configuration = configuration
     self.parameters = parameters
