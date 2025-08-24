@@ -18,7 +18,7 @@ Link to an anchor on this page. Specifically: <a href="#markdown">to the Markdow
         "Column B",
         { "name": "Column C", "function": configuration.parameters['some_parameters_here']['green_background_cell_function'] },
         { "name": "Prefixed C", "classes": [ "left-cell" ] },
-        "Fibonacci",
+        { "name": "Fibonacci", "classes": [ "right-cell", "blue-cell" ], "header_classes": [ "right-cell", "blue-cell" ] },
         "Fibonacci index"
       ],
       'SELECT _order, COALESCE(_A, "Not informed"), COALESCE(_B, "Missing"), _C, prefix_it(_C), _Fibonacci, fibonacci_index(_Fibonacci) '

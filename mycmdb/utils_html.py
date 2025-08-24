@@ -19,6 +19,11 @@ class HtmlUtils:
       th = ET.SubElement(tr, 'th')
       if isinstance(column, dict):
         th.text = column['name']
+        classes = set()
+        if 'header_classes' in column:
+          classes.update(column['header_classes'])
+        if len(classes) > 0:
+          th.set('class', ' '.join(classes))
       elif isinstance(column, str):
         th.text = column
       else:
