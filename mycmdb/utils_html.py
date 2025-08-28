@@ -11,6 +11,46 @@ class HtmlUtils:
     self.configuration = configuration
     self.parameters = parameters
 
+  #
+  # Format encoded in columns names:
+  #
+  # Column Name => Center aligned column with no particular CSS class
+  # <Column Name[class1 class2] => Left aligned column with class1 and class2 CSS classes
+  # ColumnName[class1]> => Right aligned column with class1 CSS class
+  #
+  # See render_query_ex_classes
+  #
+  # The "_ex" suffix naming choice comes from the "Extended" functions with the
+  # same name that were introduced in Win32 API to enhance previous Win3x
+  # simpler versions of the same functions.
+  #
+  def render_query_ex (self, columns_format_encoded, query, parameters = {}):
+    def c (column):
+      # Decide text alignment
+      if column.startswith('<'):
+        classes = [ 'render_query_ex_class_left' ]
+        column = column[1:]
+      elif column.endswith('>'):
+        column = column[:1]
+        classes = [ 'render_query_ex_class_right' ]
+      else:
+        classes = [ 'render_query_ex_class_center' ]
+      # Find out classes
+      groups = re.compile('^([^\[]+)(\[.*\])*$').match(column)
+      column = groups.group(1)
+      more_classes = groups.group(2)
+      if more_classes != None:
+        classes.extend(more_classes[1:-1].split(','))
+      return {
+        "name": column,
+        "header_classes": classes,
+        "classes": classes
+      }
+    return self.render_query(list(map(c, columns_format_encoded)), query, parameters) 
+
+  def render_query_ex_classes (self):
+    return '\n'.join(list(map(lambda x: f'.render_query_ex_class_{x} {{ text-align: {x}; }}', ['left', 'center', 'right'])))
+
   def render_query (self, columns, query, parameters = {}):
     table = ET.Element('table')
     thead = ET.SubElement(table, 'thead')

@@ -42,6 +42,21 @@ Link to an anchor on this page. Specifically: <a href="#markdown">to the Markdow
     )
 }}
 
+<p>With encoded styling in column names.</p>
+
+{{
+  utils.render_query_ex(
+      [
+        "Column A>",
+        "Fibonacci[red-cell]",
+        "<Fibonacci index[blue-cell,bold-cell]"
+      ],
+      'SELECT COALESCE(_A, "Not informed"), _Fibonacci, fibonacci_index(_Fibonacci) '
+      'FROM _example_table '
+      'ORDER BY _order'
+    )
+}}
+
 <h2>And a Markdown section</h2>
 
 <a name="markdown"/>
