@@ -57,6 +57,22 @@ Link to an anchor on this page. Specifically: <a href="#markdown">to the Markdow
     )
 }}
 
+<p>Join tables.</p>
+
+{{
+  utils.render_query(
+      [ 'Number', 'Letter' ],
+      'SELECT _number, _letter '
+      'FROM _table_1_to_3 '
+      'JOIN _table_A_to_C '
+      'ORDER BY _table_1_to_3._order, _table_A_to_C._order'
+    )
+}}
+
+<p>Implicit column names in query.</p>
+
+{{ utils.render_query_no_columns('SELECT * FROM _table_A_to_C ORDER BY _order') }}
+
 <h2>And a Markdown section</h2>
 
 <a name="markdown"/>

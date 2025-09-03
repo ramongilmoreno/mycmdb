@@ -9,6 +9,7 @@ class Data:
     logger.debug('Creating Data object...')
     self.configuration = configuration
     self.parameters = {} if not parameters else parameters
+    self.metadata = { "tables": [] }
 
     self.database_connection = sqlite3.connect(':memory:')
     for f in self.parameters.get('sql_functions'):
@@ -48,6 +49,12 @@ class Data:
       create_table = f'CREATE TABLE _{table_name} ({ ",".join(map(lambda c: f"_{c} {typed_columns[c]}", column_names)) })'
       logger.debug(create_table)
       self.cursor.execute(create_table)
+
+      # Populate metadata
+      self.metadata["tables"].append({
+        "name": table_name,
+        "columns": list(map(lambda c: { "name": c, "type": typed_columns[c] }, column_names))
+      })
 
       # INSERT INTO
       row_index = 1

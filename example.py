@@ -50,6 +50,25 @@ cfg.init({
             "typed_columns": {
               "Fibonacci": "NUMBER"
             }
+          },
+          {
+            "name": "table_1_to_3",
+            "values": [
+              { "number": 1 },
+              { "number": 2 },
+              { "number": 3 }
+            ],
+            "typed_columns": {
+              "number": "NUMBER"
+            }
+          },
+          {
+            "name": "table_A_to_C",
+            "values": [
+              { "letter": "A" },
+              { "letter": "B" },
+              { "letter": "C" }
+            ]
           }
         ],
         "sql_functions": [

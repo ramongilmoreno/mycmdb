@@ -1,0 +1,17 @@
+{% for i in configuration.data.metadata["tables"] %}
+
+<h1>Table _{{ i["name"] }}</h1>
+
+<h2>Columns</h2>
+
+<ul>
+{% for j in i["columns"] %}
+<li>_{{ j["name"] }}, <code>{{ j["type"] }}</code></li>
+{% endfor %}
+</ul>
+
+<h2>Values</h2>
+
+{{ utils.render_query_no_columns('SELECT * FROM _' + i["name"]) }}
+
+{% endfor %}

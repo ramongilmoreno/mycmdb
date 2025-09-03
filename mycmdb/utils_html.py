@@ -51,6 +51,12 @@ class HtmlUtils:
   def render_query_ex_classes (self):
     return '\n'.join(list(map(lambda x: f'.render_query_ex_class_{x} {{ text-align: {x}; }}', ['left', 'center', 'right'])))
 
+  def render_query_no_columns (self, query, parameters = {}):
+    # Run the query once and obtain columns
+    # https://stackoverflow.com/a/7831685
+    columns = list(map(lambda x: x[0], self.configuration.data.query(query).description))
+    return self.render_query(columns, query, parameters)
+
   def render_query (self, columns, query, parameters = {}):
     table = ET.Element('table')
     thead = ET.SubElement(table, 'thead')
